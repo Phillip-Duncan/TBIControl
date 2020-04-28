@@ -1,0 +1,48 @@
+﻿<Page x:Class="TBIControl.MainMenu" KeepAlive="True"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.FontWeight="Regular" 
+      
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TBIControl"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="MainMenu">
+
+    <Grid Margin="20,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" Columns="2">
+            <TextBox IsReadOnly="True" Margin="10,10" Text="PMD RS232"></TextBox>
+            <TextBox IsReadOnly="True" Margin="10,10" Text="Electrometer RS232"></TextBox>
+            
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="1" Columns="2">
+            <ComboBox Name="pmdPort" Margin="10,10"></ComboBox>
+            <ComboBox Name="elecPort" Margin="10,10"></ComboBox>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="2" Columns="4">
+            <Button Name="pmdConnect" FontSize="9" Margin="10,10" Click="pmdConnect_Click">Connect</Button>
+            <Button Name="pmdClose" FontSize="9" Background="#FFF35A21" Margin="10,10" Click="pmdClose_Click">Close</Button>
+            <Button Name="elecConnect" FontSize="9" Margin="10,10" Click="elecConnect_Click">Connect</Button>
+            <Button Name="elecClose" FontSize="9" Background="#FFF35A21" Margin="10,10" Click="elecClose_Click">Close</Button>
+
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="3" Columns="2">
+            <TextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="10,10" Height="Auto" Name="pmdtxtReceive"></TextBox>
+            <TextBox IsReadOnly="True" VerticalScrollBarVisibility="Visible" Margin="10,10" Height="Auto" Name="electxtReceive"></TextBox>
+        </UniformGrid>
+
+    </Grid>
+</Page>

@@ -1,0 +1,42 @@
+﻿<Page x:Class="TBIControl.ElectrometerRead" KeepAlive="True"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.FontWeight="Regular" 
+      
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TBIControl"
+      mc:Ignorable="d" 
+      d:DesignHeight="500" d:DesignWidth="600"
+      Title="ElectrometerRead">
+
+    <Grid Margin="5,10">
+
+        <StackPanel>
+            <UniformGrid Grid.Row="0" Columns="1"  Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <TextBlock FontSize="20" Margin="5,5" FontWeight="Bold" HorizontalAlignment="Center">Electrometer Read</TextBlock>
+            </UniformGrid>
+
+            <TextBox Name="readperiod" Margin="0,5,0,0" TextAlignment="Center" materialDesign:HintAssist.Hint="Time Period (in s) to read for"  materialDesign:HintAssist.IsFloating="True">10</TextBox>
+            <Button Name="Nullbtn" Margin="0,5,0,0" Click="Nullbtn_Click">Null</Button>
+            <DockPanel LastChildFill="False" HorizontalAlignment="Center">
+                <Button Name="Readbtn"  Margin="0,5,0,0" Click="Readbtn_Click">Read</Button>
+                <Button Name ="ReadSingle" Margin="5,5,0,0" Click="ReadSingle_Click">Read Single</Button>
+            </DockPanel> 
+            <TextBox IsReadOnly="True" Margin="0,25,0,0" TextAlignment="Center">Output</TextBox>
+            <TextBox IsReadOnly="True" TextWrapping="WrapWithOverflow" Name="ChargeRateOutput" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Charge Rate Output"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+            <TextBox IsReadOnly="True" Name="AverageChargeRate" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Average Charge Rate"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+            <TextBox IsReadOnly="True" Name="StdChargeRate" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Charge Rate Standard Deviation"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+            <TextBox IsReadOnly="True" Name="StdErrorOfMean" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Standard Error of Mean"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+            <TextBox IsReadOnly="True" Name="AverageChargeRateInt" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Integrated Average Charge Rate"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+            <TextBox IsReadOnly="True" Name="TotalCharge" Margin="0,5,0,0" MaxHeight="60" TextAlignment="Center" materialDesign:HintAssist.Hint="Total Charge for the period"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+
+            <ProgressBar Name="elecreadprogress" Minimum="0" Maximum="100" Value="0" />
+        </StackPanel>
+        
+        
+        
+    </Grid>
+</Page>

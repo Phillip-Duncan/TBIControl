@@ -1,0 +1,87 @@
+﻿<Window x:Class="TBIControl.MainWindow"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TBIControl"
+        mc:Ignorable="d"
+        Title="TBI Control" MinHeight="350" MinWidth="525"><!--WindowStyle="None"-->
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Row="0" Grid.ColumnSpan="2">
+            <Rectangle  Height="48" Width="Auto" VerticalAlignment="Top" Name="TitleBar" MouseDown="TitleBar_MouseDown"/>
+        </Grid>
+        
+        <Grid Grid.Column="2">
+        <DockPanel>
+            <Menu HorizontalAlignment="Right">
+                <MenuItem DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Padding="8,0,8,22" Margin="0">
+                    <MenuItem.Icon >
+                        <materialDesign:PackIcon Kind="DotsVertical" Width="40" Height="40" Margin="0,0,-40,-40"/>
+                    </MenuItem.Icon>
+
+                    <MenuItem Header="_Options" Click="MenuItem_Click_1"/>
+                    <MenuItem Header="_Exit" Click="MenuItem_Click"/>
+                </MenuItem>
+            </Menu>
+            </DockPanel>
+        </Grid>
+
+        <Grid Grid.Column="0">
+            <DockPanel>
+                <Menu>
+                    <MenuItem DockPanel.Dock="Top" Grid.IsSharedSizeScope="True" Padding="8,0,8,22" Margin="0">
+                        <MenuItem.Icon >
+                            <materialDesign:PackIcon Kind="Menu" Width="40" Height="40" Margin="0,0,-40,-40"/>
+                        </MenuItem.Icon>
+
+                        <MenuItem Header="_MainMenu" Click="MenuItem_Click_2"/>
+                        <MenuItem Header="_Move PMD" Click="MenuItem_Click_3"/>
+                        <MenuItem Header="_Electrometer Read" Click="MenuItem_Click_4"/>
+                        <MenuItem Header="_Step and Record" Click="MenuItem_Click_5"/>
+                        <MenuItem Header="_Continuous Mode"/>
+                        <!--<MenuItem Header="_Wall Scatter Calc" Click="MenuItem_Click_6"/>-->
+                    </MenuItem>
+                    
+                </Menu>
+            </DockPanel>
+
+
+        </Grid>
+
+        <Grid Grid.Row="2" Grid.ColumnSpan="2">
+            <Frame x:Name="CFrameMain"  VerticalAlignment="Top" NavigationUIVisibility="Hidden"/>
+        </Grid>
+
+        <Grid Grid.Row="3" Grid.ColumnSpan="2" Height="30" HorizontalAlignment="Right">
+            <DockPanel Name="programstatus">
+                
+            </DockPanel>
+        </Grid>
+
+    </Grid>
+    
+</Window>

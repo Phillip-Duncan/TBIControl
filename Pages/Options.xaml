@@ -1,0 +1,197 @@
+﻿<Window x:Class="TBIControl.Options"
+        
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        TextElement.Foreground="{DynamicResource MaterialDesignBody}"
+        TextElement.FontWeight="Regular"
+        TextElement.FontSize="13"
+        TextOptions.TextFormattingMode="Ideal" 
+        TextOptions.TextRenderingMode="Auto"        
+        Background="{DynamicResource MaterialDesignPaper}"
+        FontFamily="{DynamicResource MaterialDesignFont}"
+        
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TBIControl"
+        mc:Ignorable="d"
+        Title="Options" MinHeight="600" MinWidth="375" Height="600" Width="375">
+    <ScrollViewer>
+        <Grid Margin="8,4">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+
+            <UniformGrid Grid.Row="0" Columns="2" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <TextBox Grid.Column="0" FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri" Text="PMD RS232 Settings"/>
+                <TextBox Grid.Column="1" FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Electrometer RS232 Settings"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="1" Columns="4">
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri" Text="Baud Rate:"/>
+                <TextBox PreviewTextInput="pmdbaudrate_PreviewTextInput" FontSize="14" Name="pmdbaudrate" TextAlignment="Center" FontFamily="Calibri"  Text="9600" TextChanged="pmdbaudrate_TextChanged"/>
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri" Text="Baud Rate:"/>
+                <TextBox FontSize="14" Name="elecbaudrate" TextAlignment="Center" FontFamily="Calibri"  Text="9600" PreviewTextInput="elecbaudrate_PreviewTextInput"/>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="2" Columns="4">
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Parity:"/>
+                <ComboBox Name="pmdparity" FontFamily="Calibri">
+                    <ComboBoxItem>Even</ComboBoxItem>
+                    <ComboBoxItem>Odd</ComboBoxItem>
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Mark</ComboBoxItem>
+                    <ComboBoxItem>Space</ComboBoxItem>
+                </ComboBox>
+
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Parity:"/>
+
+                <ComboBox Name="elecparity" FontFamily="Calibri">
+                    <ComboBoxItem>Even</ComboBoxItem>
+                    <ComboBoxItem>Odd</ComboBoxItem>
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>Mark</ComboBoxItem>
+                    <ComboBoxItem>Space</ComboBoxItem>
+                </ComboBox>
+
+            </UniformGrid>
+
+
+
+            <UniformGrid Grid.Row="3" Columns="4">
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri" Text="Data Bits:"/>
+                <ComboBox Name="pmddatabits" FontFamily="Calibri">
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
+                    <ComboBoxItem>6</ComboBoxItem>
+                    <ComboBoxItem>7</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                </ComboBox>
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri" Text="Data Bits:"/>
+
+                <ComboBox Name="elecdatabits" FontFamily="Calibri">
+                    <ComboBoxItem>4</ComboBoxItem>
+                    <ComboBoxItem>5</ComboBoxItem>
+                    <ComboBoxItem>6</ComboBoxItem>
+                    <ComboBoxItem>7</ComboBoxItem>
+                    <ComboBoxItem>8</ComboBoxItem>
+                </ComboBox>
+
+            </UniformGrid>
+
+
+            <UniformGrid Grid.Row="4" Columns="4">
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Stopbits:"/>
+                <ComboBox Name="pmdstopbits" FontFamily="Calibri">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>One</ComboBoxItem>
+                    <ComboBoxItem>OnePointFive</ComboBoxItem>
+                    <ComboBoxItem>Two</ComboBoxItem>
+                </ComboBox>
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Stopbits:"/>
+                <ComboBox Name="elecstopbits" FontFamily="Calibri">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>One</ComboBoxItem>
+                    <ComboBoxItem>OnePointFive</ComboBoxItem>
+                    <ComboBoxItem>Two</ComboBoxItem>
+                </ComboBox>
+            </UniformGrid>
+
+
+            <UniformGrid Grid.Row="5" Columns="4">
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Flow Control:"/>
+                <ComboBox Name="pmdflowcontrol" FontFamily="Calibri">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>XOnXOff</ComboBoxItem>
+                    <ComboBoxItem>RequestToSend</ComboBoxItem>
+                    <ComboBoxItem>RequestToSendXOnXOff</ComboBoxItem>
+                </ComboBox>
+                <TextBox FontSize="14" IsReadOnly = "True" TextAlignment="Center" FontFamily="Calibri"  Text="Flow Control:"/>
+
+                <ComboBox Name="elecflowcontrol" FontFamily="Calibri">
+                    <ComboBoxItem>None</ComboBoxItem>
+                    <ComboBoxItem>XOnXOff</ComboBoxItem>
+                    <ComboBoxItem>RequestToSend</ComboBoxItem>
+                    <ComboBoxItem>RequestToSendXOnXOff</ComboBoxItem>
+                </ComboBox>
+            </UniformGrid>
+
+
+            <UniformGrid Grid.Row="6" Columns="2" Margin="0,10,0,0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <TextBox TextAlignment="Center" IsReadOnly = "True">PMD Commands</TextBox>
+                <TextBox TextAlignment="Center" IsReadOnly = "True">Electrometer Commands</TextBox>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="7" Columns="2">
+                <StackPanel>
+                    <TextBox Name="pmdinitializecmd" materialDesign:HintAssist.Hint="Initialize command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmdpositioncmd" materialDesign:HintAssist.Hint="Get Position command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmdspeedcmd" materialDesign:HintAssist.Hint="Set Speed command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmdgotoabscmd" materialDesign:HintAssist.Hint="Go to Absolute position cmd"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmdgotorelcmd" materialDesign:HintAssist.Hint="Go to Relative Position cmd"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmddriveoutcmd" materialDesign:HintAssist.Hint="Drive Out command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="pmddriveincmd" materialDesign:HintAssist.Hint="Drive In command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBox Name="elecstartcmd" materialDesign:HintAssist.Hint="Electrometer Start command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecholdcmd" materialDesign:HintAssist.Hint="Electrometer Hold command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecresetcmd" materialDesign:HintAssist.Hint="Electrometer Reset command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecnullcmd" materialDesign:HintAssist.Hint="Electrometer Null command"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecreadchratecmd" materialDesign:HintAssist.Hint="Electrometer Read charge rate cmd"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecreadchcmd" materialDesign:HintAssist.Hint="Electrometer Read charge cmd"  materialDesign:HintAssist.IsFloating="True"></TextBox>
+                </StackPanel>
+
+            </UniformGrid>
+
+
+            <UniformGrid Grid.Row="8" Columns="2" Margin="0,10,0,0" Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+                <TextBox TextAlignment="Center" IsReadOnly = "True">Advanced PMD Options</TextBox>
+                <TextBox TextAlignment="Center" IsReadOnly = "True">Advanced Elec. Options</TextBox>
+            </UniformGrid>
+
+            <UniformGrid Grid.Row="9" Columns="2">
+                <StackPanel>
+                    
+                </StackPanel>
+
+                <StackPanel>
+                    <TextBox Name="electempres" materialDesign:HintAssist.Hint="Electrometer Temporal Resolution (s)" ToolTip="Temporal Resolution or Buffer update time of electrometer." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="electempres_PreviewTextInput"></TextBox>
+                    <TextBox Name="elecdatacutoff" materialDesign:HintAssist.Hint="Electrometer Upper Charge Cutoff (C)" ToolTip="Upper Cutoff value of Charge/Charge Rate (Prevents improper formatted values from electrometer [like 10E-1 instead of 10E-14] from affecting averaged values/results)." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="electempres_PreviewTextInput"></TextBox>
+
+
+                    <TextBox Name="elecdataindex" materialDesign:HintAssist.Hint="Electrometer Data Index" ToolTip="Index of the data output RS232 String where the data is stored when split up by the dividing character (option below)." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="elecdataindex_PreviewTextInput"></TextBox>
+                    <TextBox Name="elecdatadivchar" materialDesign:HintAssist.Hint="Electrometer Data Divider Character(s)" ToolTip="The Character which divides separate pieces of data in the RS232 output string." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecdataid" materialDesign:HintAssist.Hint="Electrometer Data Identifier" ToolTip="The Identifier string which makes sure we are reading data and not error codes from the electrometer when processing data" ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True"></TextBox>
+                    <TextBox Name="elecdataidindex" materialDesign:HintAssist.Hint="Electrometer Data Identifier Index" ToolTip="The Index of the Data identifier string when split by the divider character (option above)." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="elecdataidindex_PreviewTextInput"></TextBox>
+                    
+                </StackPanel>
+            </UniformGrid>
+
+
+            <Grid Grid.Row="10" Margin="0,10,0,0">
+                <DockPanel LastChildFill="False" HorizontalAlignment="Center">
+                    <Button Margin="10,10" FontSize="14" FontFamily="Calibri" MinWidth="100" MinHeight="25" Click="Button_Click">Save</Button>
+                    <Button Margin="10,10" FontSize="14" FontFamily="Calibri" MinWidth="100" MinHeight="25" Click="Button_Click_1">Cancel</Button>
+                </DockPanel>
+
+            </Grid>
+
+        </Grid>
+    </ScrollViewer>
+</Window>

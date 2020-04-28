@@ -1,0 +1,111 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="TBIControl.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="pmdbaudrate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
+    <Setting Name="pmdparity" Type="System.IO.Ports.Parity" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="pmddatabits" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="pmdstopbits" Type="System.IO.Ports.StopBits" Scope="User">
+      <Value Profile="(Default)">One</Value>
+    </Setting>
+    <Setting Name="pmdflowcontrol" Type="System.IO.Ports.Handshake" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="elecbaudrate" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">9600</Value>
+    </Setting>
+    <Setting Name="elecparity" Type="System.IO.Ports.Parity" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="elecdatabits" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">8</Value>
+    </Setting>
+    <Setting Name="elecstopbits" Type="System.IO.Ports.StopBits" Scope="User">
+      <Value Profile="(Default)">One</Value>
+    </Setting>
+    <Setting Name="elecflowcontrol" Type="System.IO.Ports.Handshake" Scope="User">
+      <Value Profile="(Default)">None</Value>
+    </Setting>
+    <Setting Name="pmdport" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="pmdconnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="pmdserobj" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="elecport" Type="System.String" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="elecconnected" Type="System.Boolean" Scope="User">
+      <Value Profile="(Default)">False</Value>
+    </Setting>
+    <Setting Name="elecserobj" Type="System.IO.Ports.SerialPort" Scope="User">
+      <Value Profile="(Default)" />
+    </Setting>
+    <Setting Name="pmdinitializecmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D</Value>
+    </Setting>
+    <Setting Name="pmdpositioncmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">E</Value>
+    </Setting>
+    <Setting Name="pmdspeedcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">I</Value>
+    </Setting>
+    <Setting Name="pmdgotoabscmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">B</Value>
+    </Setting>
+    <Setting Name="pmdgotorelcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">C</Value>
+    </Setting>
+    <Setting Name="pmddriveoutcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">H</Value>
+    </Setting>
+    <Setting Name="pmddriveincmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">G</Value>
+    </Setting>
+    <Setting Name="elecstartcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">STA</Value>
+    </Setting>
+    <Setting Name="elecholdcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">HLD</Value>
+    </Setting>
+    <Setting Name="elecresetcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">RES</Value>
+    </Setting>
+    <Setting Name="elecnullcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">NUL</Value>
+    </Setting>
+    <Setting Name="elecreadchratecmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D1</Value>
+    </Setting>
+    <Setting Name="elecreadchcmd" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D0</Value>
+    </Setting>
+    <Setting Name="electempres" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0.5</Value>
+    </Setting>
+    <Setting Name="elecdataindex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">5</Value>
+    </Setting>
+    <Setting Name="elecdatadivchar" Type="System.String" Scope="User">
+      <Value Profile="(Default)">;</Value>
+    </Setting>
+    <Setting Name="elecdataid" Type="System.String" Scope="User">
+      <Value Profile="(Default)">D1</Value>
+    </Setting>
+    <Setting Name="elecdataidindex" Type="System.String" Scope="User">
+      <Value Profile="(Default)">0</Value>
+    </Setting>
+    <Setting Name="elecdatacutoff" Type="System.String" Scope="User">
+      <Value Profile="(Default)">1E-7</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

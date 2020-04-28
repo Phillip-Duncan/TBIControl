@@ -1,0 +1,62 @@
+﻿<Page x:Class="TBIControl.MovePMD" KeepAlive="True"
+      
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      TextElement.FontWeight="Regular"      
+      
+      
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:TBIControl"
+      mc:Ignorable="d" 
+      d:DesignHeight="300" d:DesignWidth="300"
+      Title="MovePMD">
+
+    <Grid Margin="20,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <UniformGrid Grid.Row="0" Columns="1"  Background="{DynamicResource {x:Static SystemColors.GradientInactiveCaptionBrushKey}}">
+            <TextBlock FontSize="20" Margin="5,5" FontWeight="Bold" HorizontalAlignment="Center">Move PMD</TextBlock>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="1" Columns="2" Margin="0,20,0,0">
+            <TextBox IsReadOnly="True">Initialize:</TextBox>
+            <Button Click="Button_Click_1">Initialize</Button>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="2" Columns="2" Margin="0,20,0,0">
+            <TextBox IsReadOnly="True">Move to/by:</TextBox>
+            <TextBox Name="pmdmovetoby" TextAlignment="Center" materialDesign:HintAssist.Hint="(in mm)"  materialDesign:HintAssist.IsFloating="True">0</TextBox>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="3" Columns="2" Margin="0,20,0,0">
+            <TextBox IsReadOnly="True" >Speed:</TextBox>
+            <TextBox Name="pmdspeed" TextAlignment="Center" materialDesign:HintAssist.Hint="(in mm/s)"  materialDesign:HintAssist.IsFloating="True">0</TextBox>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="4" Columns="2" Margin="0,20,0,0">
+            <TextBox IsReadOnly="True">Move Mode:</TextBox>
+            <ComboBox Name="pmdmovemode" SelectedIndex="0">
+                <ComboBoxItem>Absolute</ComboBoxItem>
+                <ComboBoxItem>Relative</ComboBoxItem>
+                <ComboBoxItem>Drive Out</ComboBoxItem>
+                <ComboBoxItem>Drive In</ComboBoxItem>
+            </ComboBox>
+        </UniformGrid>
+
+        <UniformGrid Grid.Row="5" Columns="1">
+            <Button Click="Button_Click" Margin="80,20,80,0">Move</Button>
+        </UniformGrid>
+
+
+    </Grid>
+</Page>
