@@ -77,11 +77,20 @@ namespace TBIControl
 
             try
             {
-                var pmdc = pmdsport.IsOpen;
+                if (pmdsport != null)
+                {
+                    var pmdc = pmdsport.IsOpen;
+                }
+                else { this.pmdConnect.IsEnabled = true; }
             } catch { this.pmdConnect.IsEnabled = true; }
             try
             {
-                var elecc = elecsport.IsOpen;
+                if (elecsport != null)
+                {
+                    var elecc = elecsport.IsOpen;
+                }
+                else { this.elecConnect.IsEnabled = true; }
+
             } catch { this.elecConnect.IsEnabled = true; }
 
 
@@ -111,11 +120,11 @@ namespace TBIControl
             DateTime dt = DateTime.Now;
             String dtn = dt.ToShortTimeString();
 
-            pmdsport = new System.IO.Ports.SerialPort(
-            port, baudrate, parity, databits, stopbits);
-            pmdsport.Handshake = flowcontrol;
             try
-            {
+            { 
+                pmdsport = new System.IO.Ports.SerialPort(
+                port, baudrate, parity, databits, stopbits);
+                pmdsport.Handshake = flowcontrol;
                 pmdsport.Open();
                 pmdClose.IsEnabled = true;
                 pmdConnect.IsEnabled = false;
@@ -130,13 +139,14 @@ namespace TBIControl
             DateTime dt = DateTime.Now;
             String dtn = dt.ToShortTimeString();
 
-            elecsport = new System.IO.Ports.SerialPort(
-            port, baudrate, parity, databits, stopbits);
-            elecsport.Handshake = flowcontrol;
-            elecsport.ReadTimeout = 2000;
-            elecsport.WriteTimeout = 2000;
+
             try
             {
+                elecsport = new System.IO.Ports.SerialPort(
+                port, baudrate, parity, databits, stopbits);
+                elecsport.Handshake = flowcontrol;
+                elecsport.ReadTimeout = 2000;
+                elecsport.WriteTimeout = 2000;
                 elecsport.Open();
                 elecClose.IsEnabled = true;
                 elecConnect.IsEnabled = false;

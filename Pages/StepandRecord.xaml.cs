@@ -233,6 +233,17 @@ namespace TBIControl
 
         }
 
+        private int getsrdatalistsize()
+        {
+            JArray lstjarr;
+            using (StreamReader sr = new StreamReader("srdata.json"))
+            {
+                string lstjson = sr.ReadToEnd();
+                lstjarr = JArray.Parse(lstjson);
+            }
+            return lstjarr.Count();
+        }
+
 
 
         // Helper functions for click and hold to select multiple checkboxes for TPR/OAD Graphs
@@ -311,6 +322,34 @@ namespace TBIControl
                 avgintchrates[0, OApositions.Count() + h + 1] = OApositions[h] - caxpos;
                 avgintchrates[0, 2 * OApositions.Count() + h + 1] = OApositions[h] - caxpos;
             }
+
+
+            // Set some base variables for output files..
+            string jout = "";
+            var name = "SRsave-" + DateTime.Now.ToString("ddMMyyyyhhmmss");
+
+
+            // Write JSON header... This will be replaced later anyway
+            string jsondata = JsonConvert.SerializeObject(avgintchrates);
+            JArray jarray = JArray.Parse(jsondata);
+            jarray.Add(name);
+
+
+            using (StreamReader sr = new StreamReader("srdata.json"))
+            {
+                string json = sr.ReadToEnd();
+                JArray jarr = JArray.Parse(json);
+
+                jarr.Add(jarray);
+
+                jout = JsonConvert.SerializeObject(jarr);
+            }
+            File.WriteAllText("srdata.json", jout);
+
+            updatesrdatalist();
+
+            var jidx = getsrdatalistsize();
+
 
 
             for (int i = 0; i < depths.Count(); i++)
@@ -484,6 +523,7 @@ namespace TBIControl
                     var timeout = DateTime.Now.AddSeconds(0.3);
                     while (DateTime.Now < timerecord)
                     {
+                        timeout = DateTime.Now.AddSeconds(0.3);
                         while (DateTime.Now < timeout)
                         {
                             try
@@ -497,10 +537,14 @@ namespace TBIControl
 
 
                                 chrate = Convert.ToDouble(chratedata[elecdataindex]);
-                                break;
+                                if ((Math.Abs(chrate) < Math.Abs(elecdatacutoff)))
+                                {
+                                    break;
+                                }
 
                             }
                             catch { continue; }
+                            break;
                         }
                         var isD1 = chratedata[elecdataidindex];//Regex.Replace(chratedata[elecdataidindex], @"\s+", "");
 
@@ -536,8 +580,15 @@ namespace TBIControl
                     }
                     else
                     {
-                        MessageBox.Show("Error has occurred as no charge rates recorded for depth: " + depths[i].ToString() + "cm , Off-Axis Position: " + ((OApositions[j] / 10).ToString()) + "cm" + ", Run has stopped", "Error");
-                        return;
+                        if (MessageBox.Show("Error has occurred as no charge rates recorded for depth: " + depths[i].ToString() + "cm , Off-Axis Position: " + ((OApositions[j] / 10).ToString()) + "cm" + " Do you want to continue or repeat the profile measurements for this depth? (YES: Continue, NO: Repeat Measurements)", "Question", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                        {
+                            //do no stuff
+                            goto DoProfile;
+                        }
+                        // If continue set charge rates/std/etc all to -99999 as these have not been recorded and may need to be highlighted.
+                        Avgchargerate = -99999;
+                        Stdchargerate = -99999;
+                        StdErrorOfMean = -99999;
                     }
 
 
@@ -593,6 +644,24 @@ namespace TBIControl
                     }
 
 
+                    jsondata = JsonConvert.SerializeObject(avgintchrates);
+                    jarray = JArray.Parse(jsondata);
+                    jarray[0][0] = name;
+
+                    using (StreamReader sr = new StreamReader("srdata.json"))
+                    {
+                        string json = sr.ReadToEnd();
+                        JArray jarr = JArray.Parse(json);
+
+                        //jarr.Add(jarray);
+                        jarr[jidx - 1] = jarray;
+
+                        jout = JsonConvert.SerializeObject(jarr);
+                    }
+                    File.WriteAllText("srdata.json", jout);
+
+                    updatesrdatalist();
+
 
                     elecsport.Write(elecholdcmd + "\r\n");
                     Thread.Sleep(55);
@@ -614,12 +683,9 @@ namespace TBIControl
                         goto DoProfile;
                     }
 
-
-                    string jout = "";
-                    var name = "SRsave-" + DateTime.Now.ToString("ddMMyyyyhhmmss");
-
-                    string jsondata = JsonConvert.SerializeObject(avgintchrates);
-                    JArray jarray = JArray.Parse(jsondata);
+                    jsondata = JsonConvert.SerializeObject(avgintchrates);
+                    //JArray jarray = JArray.Parse(jsondata);
+                    jarray = JArray.Parse(jsondata);
                     jarray[0][0] = name;
 
 
@@ -628,7 +694,8 @@ namespace TBIControl
                         string json = sr.ReadToEnd();
                         JArray jarr = JArray.Parse(json);
 
-                        jarr.Add(jarray);
+                        //jarr.Add(jarray);
+                        jarr[jidx - 1] = jarray;
 
                         jout = JsonConvert.SerializeObject(jarr);
                     }

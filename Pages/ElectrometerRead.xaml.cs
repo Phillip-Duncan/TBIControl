@@ -321,26 +321,34 @@ namespace TBIControl
         
         private void Nullbtn_Click(object sender, RoutedEventArgs e)
         {
-            this.elecsport = Properties.Settings.Default.elecserobj;
+            try
+            {
+                this.elecsport = Properties.Settings.Default.elecserobj;
 
-            elecsport.Write(elecstartcmd + "\r\n");
-            elecsport.ReadExisting();
-            Thread.Sleep(20000);
-            elecsport.Write(elecnullcmd + "\r\n");
-            elecsport.ReadExisting(); 
+                elecsport.Write(elecstartcmd + "\r\n");
+                elecsport.ReadExisting();
+                Thread.Sleep(20000);
+                elecsport.Write(elecnullcmd + "\r\n");
+                elecsport.ReadExisting();
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString(), "Error"); }
         }
 
         private void ReadSingle_Click(object sender, RoutedEventArgs e)
         {
-            elecsport.Write(elecreadchratecmd + "\r\n");
-            Thread.Sleep(50);
-            var chratedata = elecsport.ReadExisting();
+            try
+            {
+                elecsport.Write(elecreadchratecmd + "\r\n");
+                Thread.Sleep(50);
+                var chratedata = elecsport.ReadExisting();
 
-            MessageBox.Show(chratedata.ToString(), "Single Read Output");
+                MessageBox.Show(chratedata.ToString(), "Single Read Output");
 
-            var cchhrate = Convert.ToDouble(Regex.Split(chratedata, ";")[5]);
+                var cchhrate = Convert.ToDouble(Regex.Split(chratedata, ";")[5]);
 
-            MessageBox.Show(cchhrate.ToString(), "Charge rate Read Output");
+                MessageBox.Show(cchhrate.ToString(), "Charge rate Read Output");
+            }
+            catch (Exception ex) { MessageBox.Show(ex.ToString(), "Error"); }
 
         }
     }
