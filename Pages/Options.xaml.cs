@@ -68,6 +68,9 @@ namespace TBIControl
             this.elecdataid.Text = Properties.Settings.Default.elecdataid;
             this.elecdataidindex.Text = Properties.Settings.Default.elecdataidindex;
 
+            // Adv RS232 update rate
+            this.minRS232updtime.Text = Convert.ToString(Properties.Settings.Default.minRS232updtime);
+
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -109,6 +112,9 @@ namespace TBIControl
             Properties.Settings.Default.elecdatadivchar = elecdatadivchar.Text;
             Properties.Settings.Default.elecdataid= elecdataid.Text;
             Properties.Settings.Default.elecdataidindex = elecdataidindex.Text;
+
+            // Adv RS232 update rate
+            Properties.Settings.Default.minRS232updtime = Convert.ToDouble(minRS232updtime.Text);
 
             Properties.Settings.Default.Save();
 
@@ -161,6 +167,11 @@ namespace TBIControl
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
             this.Close();
+        }
+
+        private void minRS232updrate_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = IsTextAllowedNumOnly(e.Text);
         }
 
         private void elecbaudrate_PreviewTextInput(object sender, TextCompositionEventArgs e)

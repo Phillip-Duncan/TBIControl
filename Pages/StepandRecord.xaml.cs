@@ -71,6 +71,8 @@ namespace TBIControl
             this.elecdataid = Properties.Settings.Default.elecdataid;
             this.elecdataidindex = Convert.ToInt32(Properties.Settings.Default.elecdataidindex);
 
+            this.min232updtime = Convert.ToDouble(Properties.Settings.Default.minRS232updtime);
+
 
             updatesrdatalist();
         }
@@ -90,6 +92,8 @@ namespace TBIControl
         string elecdatadivchar = Properties.Settings.Default.elecdatadivchar;
         string elecdataid = Properties.Settings.Default.elecdataid;
         int elecdataidindex = Convert.ToInt32(Properties.Settings.Default.elecdataidindex);
+
+        double min232updtime = Convert.ToDouble(Properties.Settings.Default.minRS232updtime);
 
 
         string pmdinitializecmd;
@@ -197,7 +201,7 @@ namespace TBIControl
         {
 
             this.pmdsport.Write(pmdpositioncmd + "\r\n");
-            Thread.Sleep(55);
+            Thread.Sleep((int) min232updtime);
             var pos = Convert.ToDouble(Regex.Split(pmdsport.ReadExisting(), "E")[1]);
 
             var deltapos = Math.Abs(pos - gotopos);
@@ -332,7 +336,7 @@ namespace TBIControl
             // Write JSON header... This will be replaced later anyway
             string jsondata = JsonConvert.SerializeObject(avgintchrates);
             JArray jarray = JArray.Parse(jsondata);
-            jarray.Add(name);
+            jarray[0][0] = name;
 
 
             using (StreamReader sr = new StreamReader("srdata.json"))
@@ -357,7 +361,7 @@ namespace TBIControl
 
                 #region "Initialize to 0"
                 this.pmdsport.Write(pmdspeedcmd + "20.0" + "\r\n");
-                Thread.Sleep(55);
+                Thread.Sleep((int) min232updtime);
                 this.pmdsport.Write(pmdinitializecmd + "\r\n");
                 Thread.Sleep(1500);
 
@@ -369,7 +373,7 @@ namespace TBIControl
                     try
                     {
                         //this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                        Thread.Sleep(55);
+                        Thread.Sleep((int) min232updtime);
                         //var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
                         var read = pmdsport.ReadExisting();
 
@@ -377,7 +381,7 @@ namespace TBIControl
                         {
                             Thread.Sleep(1000);
                             this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                            Thread.Sleep(55);
+                            Thread.Sleep((int) min232updtime);
                             var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
                             if (Convert.ToDouble(pos) == 0)
                             {
@@ -408,7 +412,7 @@ namespace TBIControl
                 #region "Initialize to offset point"
 
                 this.pmdsport.Write(pmdgotoabscmd + pmdstartpos + "\r\n");
-                Thread.Sleep(55);
+                Thread.Sleep((int) min232updtime);
                 var inposition2 = false;
 
                 var timeout23 = DateTime.Now.AddSeconds(120);
@@ -416,14 +420,14 @@ namespace TBIControl
                 {
                     try
                     {
-                        Thread.Sleep(55);
+                        Thread.Sleep((int) min232updtime);
                         var read = pmdsport.ReadExisting();
 
                         if (read.Contains("P"))
                         {
                             Thread.Sleep(1000);
                             this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                            Thread.Sleep(55);
+                            Thread.Sleep((int) min232updtime);
                             var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
 
                             if (Convert.ToDouble(pos) == Convert.ToDouble(pmdstartpos))
@@ -452,7 +456,7 @@ namespace TBIControl
 
                 // SET PMD SPEED POST INITIALIZATION
                 this.pmdsport.Write(pmdspeedcmd + pmdspeed + "\r\n");
-                Thread.Sleep(55);
+                Thread.Sleep((int) min232updtime);
 
 
                 DoProfile:
@@ -462,7 +466,7 @@ namespace TBIControl
                     var gotopos = OApositions[j].ToString();
 
                     this.pmdsport.Write(pmdgotoabscmd + gotopos + "\r\n");
-                    Thread.Sleep(55);
+                    Thread.Sleep((int) min232updtime);
                     var inpositionoa = false;
 
                     while (inpositionoa == false)
@@ -475,7 +479,7 @@ namespace TBIControl
                             {
                                 Thread.Sleep(1000);
                                 this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                                Thread.Sleep(55);
+                                Thread.Sleep((int) min232updtime);
                                 var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
 
                                 if (Convert.ToDouble(pos) == Convert.ToDouble(gotopos))
@@ -495,12 +499,12 @@ namespace TBIControl
                     // MOVE PMD END
 
                     elecsport.Write(elecholdcmd + "\r\n");
-                    Thread.Sleep(55);
+                    Thread.Sleep((int) min232updtime);
                     elecsport.ReadExisting();
 
 
                     elecsport.Write(elecresetcmd + "\r\n");
-                    Thread.Sleep(55);
+                    Thread.Sleep((int) min232updtime);
                     elecsport.ReadExisting();
 
 
@@ -529,7 +533,7 @@ namespace TBIControl
                             try
                             {
                                 elecsport.Write(elecreadchratecmd + "\r\n");
-                                Thread.Sleep(55);
+                                Thread.Sleep((int) min232updtime);
 
                                 var elecdataformatted = (elecsport.ReadExisting()).Replace(" ", String.Empty);
 
@@ -606,43 +610,6 @@ namespace TBIControl
                         goto DoProfile;
                     }
 
-                    this.pmdsport.Write(pmdgotoabscmd + caxpostxt + "\r\n");
-                    Thread.Sleep(55);
-
-
-                    inposition2 = false;
-
-                    timeout23 = DateTime.Now.AddSeconds(timeout(Convert.ToDouble(pmdspeed), Convert.ToDouble(caxpos)));
-                    while (inposition2 == false && DateTime.Now < timeout23)
-                    {
-                        try
-                        {
-                            Thread.Sleep(55);
-                            var read = pmdsport.ReadExisting();
-
-                            if (read.Contains("P"))
-                            {
-                                Thread.Sleep(1000);
-                                this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                                Thread.Sleep(55);
-                                var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
-
-                                if (Convert.ToDouble(pos) == caxpos)
-                                {
-                                    inposition2 = true;
-                                    break;
-                                }
-
-                            }
-                            else
-                            {
-                                continue;
-                            }
-
-                        }
-                        catch { continue; }
-                    }
-
 
                     jsondata = JsonConvert.SerializeObject(avgintchrates);
                     jarray = JArray.Parse(jsondata);
@@ -662,15 +629,52 @@ namespace TBIControl
 
                     updatesrdatalist();
 
+                    this.pmdsport.Write(pmdgotoabscmd + caxpostxt + "\r\n");
+                    Thread.Sleep((int) min232updtime);
+
+
+                    inposition2 = false;
+
+                    timeout23 = DateTime.Now.AddSeconds(timeout(Convert.ToDouble(pmdspeed), Convert.ToDouble(caxpos)));
+                    while (inposition2 == false && DateTime.Now < timeout23)
+                    {
+                        try
+                        {
+                            Thread.Sleep((int) min232updtime);
+                            var read = pmdsport.ReadExisting();
+
+                            if (read.Contains("P"))
+                            {
+                                Thread.Sleep(1000);
+                                this.pmdsport.Write(pmdpositioncmd + "\r\n");
+                                Thread.Sleep((int) min232updtime);
+                                var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
+
+                                if (Convert.ToDouble(pos) == caxpos)
+                                {
+                                    inposition2 = true;
+                                    break;
+                                }
+
+                            }
+                            else
+                            {
+                                continue;
+                            }
+
+                        }
+                        catch { continue; }
+                    }
+
 
                     elecsport.Write(elecholdcmd + "\r\n");
-                    Thread.Sleep(55);
+                    Thread.Sleep((int) min232updtime);
                     elecsport.ReadExisting();
 
                     //goto DoProfile;
 
                     elecsport.Write(elecresetcmd + "\r\n");
-                    Thread.Sleep(55);
+                    Thread.Sleep((int) min232updtime);
                     elecsport.ReadExisting();
 
                     MessageBox.Show("Depth: " + depths[i].ToString() + "cm completed, please move chamber to depth: " + depths[i + 1].ToString() + "cm and then hit 'OK' / close this prompt", "Info");
@@ -805,7 +809,7 @@ namespace TBIControl
                 string pmdstartpos = this.startpos.Text;
 
                 this.pmdsport.Write(pmdspeedcmd + pmdspeed + "\r\n");
-                Thread.Sleep(55);
+                Thread.Sleep((int) min232updtime);
                 this.pmdsport.Write(pmdinitializecmd + "\r\n");
                 Thread.Sleep(1500);
 
@@ -817,14 +821,14 @@ namespace TBIControl
                 {
                     try
                     {
-                        Thread.Sleep(55);
+                        Thread.Sleep((int) min232updtime);
                         var read = pmdsport.ReadExisting();
 
                         if (read.Contains("P"))
                         {
                             Thread.Sleep(1000);
                             this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                            Thread.Sleep(55);
+                            Thread.Sleep((int) min232updtime);
                             var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
 
                             if (Convert.ToDouble(pos) == 0)
@@ -848,21 +852,21 @@ namespace TBIControl
                 }
 
                 this.pmdsport.Write(pmdgotoabscmd + pmdstartpos + "\r\n");
-                Thread.Sleep(55);
+                Thread.Sleep((int) min232updtime);
 
                 var timeout2 = DateTime.Now.AddSeconds(120);
                 while (inposition2 == false && DateTime.Now < timeout2)
                 {
                     try
                     {
-                        Thread.Sleep(55);
+                        Thread.Sleep((int) min232updtime);
                         var read = pmdsport.ReadExisting();
 
                         if (read.Contains("P"))
                         {
                             Thread.Sleep(1000);
                             this.pmdsport.Write(pmdpositioncmd + "\r\n");
-                            Thread.Sleep(55);
+                            Thread.Sleep((int) min232updtime);
                             var pos = Regex.Split(pmdsport.ReadExisting(), "E")[1];
 
                             if (Convert.ToDouble(pos) == Convert.ToDouble(pmdstartpos))

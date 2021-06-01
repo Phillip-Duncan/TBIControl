@@ -167,7 +167,7 @@
 
             <UniformGrid Grid.Row="9" Columns="2">
                 <StackPanel>
-                    
+                    <TextBox Name="minRS232updtime" materialDesign:HintAssist.Hint="Minimum RS232 Update time (ms)" ToolTip="Minimum update (delay) time for RS232 commands to the PMD/Electrometer." ToolTipService.ShowDuration="5000" materialDesign:HintAssist.IsFloating="True" PreviewTextInput="minRS232updrate_PreviewTextInput"></TextBox>
                 </StackPanel>
 
                 <StackPanel>

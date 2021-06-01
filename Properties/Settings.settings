@@ -107,5 +107,8 @@
     <Setting Name="elecdatacutoff" Type="System.String" Scope="User">
       <Value Profile="(Default)">1E-7</Value>
     </Setting>
+    <Setting Name="minRS232updtime" Type="System.Double" Scope="User">
+      <Value Profile="(Default)">60</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

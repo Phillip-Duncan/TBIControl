@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
+using System.Threading;
 
 namespace TBIControl
 {
@@ -38,6 +39,10 @@ namespace TBIControl
             pmdgotorelcmd = Properties.Settings.Default.pmdgotorelcmd;
             pmddriveoutcmd = Properties.Settings.Default.pmddriveoutcmd;
             pmddriveincmd = Properties.Settings.Default.pmddriveincmd;
+
+            this.min232updtime = Convert.ToDouble(Properties.Settings.Default.minRS232updtime);
+
+
         }
 
         string pmdinitializecmd;
@@ -48,6 +53,7 @@ namespace TBIControl
         string pmddriveoutcmd;
         string pmddriveincmd;
 
+        double min232updtime = Convert.ToDouble(Properties.Settings.Default.minRS232updtime);
 
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -66,9 +72,9 @@ namespace TBIControl
             string pmddriveoutcmd = Properties.Settings.Default.pmddriveoutcmd;
             string pmddriveincmd = Properties.Settings.Default.pmddriveincmd;
 
-
+            Thread.Sleep((int) min232updtime);
             pmdsport.Write(pmdspeedcmd + pmdspeed + "\r\n");
-
+            Thread.Sleep((int)min232updtime);
 
 
             if (movemode == "Absolute")
